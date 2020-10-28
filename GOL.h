@@ -11,7 +11,7 @@ class GOL{ //Definition de la classe
   GOL(int dimij);
   GOL(int dimi, int dimj, std::string UserChoice);
   GOL(int dimij, std::string UserChoice);
-  GOL(std::string UserChoice);
+  GOL(std::string UserChoice, std::string InitFile);
 
   void initialisation(); //Initialisation du jeu
   void play(); //Mise a jour du statut des cellules lors d'une iteration
@@ -22,6 +22,8 @@ class GOL{ //Definition de la classe
   int _dimi; //Nombre de ligne de la grille
   int _dimj; //Nombre de colonnes de la grille
   std::string _results; // nom du repertoire où la solution
+  std::string _initfile; // nom du fichier pour init le jeu
+  // lorque on utilise GOL(std::string UserChoice) i.e custom init
   // sera sauvegerdée.
   //La grille qui contient le statut des cellules 1 si cellule vivante,
   //0 si elle est morte. Elle est definie comme un vecteur de vecteur de int.

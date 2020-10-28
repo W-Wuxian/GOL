@@ -22,10 +22,14 @@ int main(int argc, char *argv[], char *envp[]){
     }*/
 
   string UserChoice;
-  if(CASE>2){UserChoice = argv[1];}else{UserChoice = GENREP();}
+  string InitFile;
+  if(CASE>2){
+    UserChoice = argv[1];
+    if(argv[2] != NULL){InitFile = argv[2];}else{InitFile = "mat.txt";}
+  }else{UserChoice = GENREP();}
   cout<<" CASE "<<GENREP()<<" UserChoice "<<UserChoice<<"\n";
   int iterationNB = 110;
-  GOL game(50, 50, UserChoice);
+  GOL game(UserChoice, InitFile);
   game.initialisation();
   game.saveSolution(0);
   for(int ite = 1; ite<iterationNB+1; ite++){

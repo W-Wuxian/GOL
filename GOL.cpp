@@ -14,7 +14,7 @@ GOL::GOL(int dimij){_dimi = dimij; _dimj = dimij; _grid.resize(_dimi,std::vector
 GOL::GOL(int dimi, int dimj, std::string UserChoice){_dimi = dimi; _dimj = dimj; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
 GOL::GOL(int dimij, std::string UserChoice){_dimi = dimij; _dimj = dimij; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
 // via name:
-GOL::GOL(std::string UserChoice){_dimi = 50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
+GOL::GOL(std::string UserChoice, std::string InitFile){_dimi = 50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice; _initfile=InitFile;}
 
 // Initialisation du jeu:
 // default: clown case:
@@ -62,12 +62,18 @@ void GOL::initialisation()
     {
       FILE* mf;
       int iv=0, jv=0, vv=0;
-      mf = fopen((_results+"/*.txt").c_str(), "r");
-      fscanf(mf, "%d %d\n", &_dimi, &_dimj);
+      int a=0, b=0;
+      mf = fopen((_results+"/"+_initfile).c_str(), "r");
+      std::cout<<(_initfile).c_str()<<"\n";
+      std::cout<<(_results+"/"+_initfile).c_str()<<"\n";
+      fscanf(mf, "%d %d\n", &a, &b);
+      _dimi = a; _dimj = b;
+      std::cout<<"dimi dimj "<<a<<" "<<b<<"\n";
       _grid.resize(_dimi,std::vector<int>(_dimj,0));
       for(int i=0; i<_dimi; i++){
 	for(int j=0; j<_dimj; j++){
 	  fscanf(mf, "%d %d %d\n", &iv, &jv, &vv);
+	  //std::cout<<"i j v"<<iv<<" "<<jv<<" "<<vv<<"\n";
 	  _grid[iv][jv] = vv;
 	}
       }
