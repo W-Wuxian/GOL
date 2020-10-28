@@ -5,9 +5,20 @@
 // valgrind --leak-check=yes ./run
 // gprof -l run *.out > analysis.txt
 using namespace std;
+
+#ifdef CASE
+#define GENREP() ((CASE==0)?("Random"):((CASE==1)?("Clown"):((CASE==2)?("Canon"):("Custom"))))
+#endif
+
 int main(){
+  
+  string UserChoice;
+  if(GENREP()=="Custom"){
+    cout << "ENTER REPOSITORY PATH FOR THE INIT FILE" <<"\n";
+    cin >> UserChoice;
+  }else{UserChoice = GENREP();}
+  cout<<" CASE "<<GENREP()<<" UserChoice "<<UserChoice<<"\n";
   int iterationNB = 110;
-  int r = 9;
   GOL game(50, 50);
   game.initialisation();
   game.saveSolution(0);

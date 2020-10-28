@@ -6,22 +6,73 @@
 
 // Constructeur:
 // default: set values by default:
-GOL::GOL(){_dimi = 50; _dimj = 50; _grid.resize(_dimi,std::vector<int>(_dimj,0));}
-// via input:
-GOL::GOL(int dimi, int dimj){_dimi = dimi; _dimj = dimj; _grid.resize(_dimi,std::vector<int>(_dimj,0));}
-GOL::GOL(int dimij){_dimi = dimij; _dimj = dimij; _grid.resize(_dimi,std::vector<int>(_dimj,0));}
+GOL::GOL(){_dimi = 50; _dimj = 50; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results="Random";}
+// via dimension input, directory for output set by default to "Clown":
+GOL::GOL(int dimi, int dimj){_dimi = dimi; _dimj = dimj; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results="Random";}
+GOL::GOL(int dimij){_dimi = dimij; _dimj = dimij; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results="Random";}
+// via dimension and directory for output by name:
+GOL::GOL(int dimi, int dimj, std::string UserChoice){_dimi = dimi; _dimj = dimj; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
+GOL::GOL(int dimij, std::string UserChoice){_dimi = dimij; _dimj = dimij; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
+// via name:
+GOL::GOL(std::string UserChoice){_dimi = 50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
 
 // Initialisation du jeu:
 // default: clown case:
 void GOL::initialisation()
 {
-  std::cout << "_dimi " << _dimi <<std::endl;
-  //_grid[3][3] = 1; _grid[3][4] = 1; _grid[3][5] = 1;
-  //_grid[4][3] = 1; _grid[4][5] = 1;
-  //_grid[5][3] = 1; _grid[5][5] = 1;
-  _grid[19][24] = 1; _grid[19][26] = 1;
-  _grid[20][24] = 1; _grid[20][26] = 1;
-  _grid[21][24] = 1; _grid[21][25] = 1; _grid[21][26] = 1;
+  // Dossier pour mettre les résultats (dont le nom dépend du choix)
+  system(("mkdir -p ./" + _results).c_str());
+  if(_results ==  "Clown") // Clown
+    {
+      if(_dimi < 50 || _dimj < 50){_dimi=50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0));}
+      std::cout << "_dimi " << _dimi <<std::endl;
+      _grid[19][24] = 1; _grid[19][26] = 1;
+      _grid[20][24] = 1; _grid[20][26] = 1;
+      _grid[21][24] = 1; _grid[21][25] = 1; _grid[21][26] = 1;
+    }
+  else if(_results == "Canon") // Canon
+    {
+      if(_dimi < 50 || _dimj < 50){_dimi=50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0));}
+      std::cout << "_dimi " << _dimi <<std::endl;
+      _grid[20][ 6]=1; _grid[23][21]=1; _grid[21][30]=1; _grid[37][43]=1;
+      _grid[21][ 6]=1; _grid[20][22]=1; _grid[22][30]=1; _grid[38][43]=1;
+      _grid[20][ 7]=1; _grid[21][22]=1; _grid[18][40]=1; _grid[40][43]=1;
+      _grid[21][ 7]=1; _grid[22][22]=1; _grid[19][40]=1; _grid[41][43]=1;
+      _grid[20][16]=1; _grid[21][23]=1; _grid[18][41]=1; _grid[42][43]=1;
+      _grid[21][16]=1; _grid[18][26]=1; _grid[19][41]=1; _grid[38][44]=1;
+      _grid[22][16]=1; _grid[19][26]=1; _grid[37][40]=1; _grid[40][44]=1;
+      _grid[19][17]=1; _grid[20][26]=1; _grid[38][40]=1; _grid[38][45]=1;
+      _grid[23][17]=1; _grid[18][27]=1; _grid[40][40]=1; _grid[40][45]=1;
+      _grid[18][18]=1; _grid[19][27]=1; _grid[37][41]=1; _grid[39][46]=1;
+      _grid[24][18]=1; _grid[20][27]=1; _grid[38][41]=1; _grid[19][21]=1;
+      _grid[18][19]=1; _grid[17][28]=1; _grid[40][41]=1; _grid[17][30]=1;
+      _grid[24][19]=1; _grid[21][28]=1; _grid[41][41]=1; _grid[43][42]=1;
+      _grid[21][20]=1; _grid[16][30]=1; _grid[42][41]=1;
+    }
+  else if(_results == "Random") // Random (default)
+    {
+      srand(3000);
+      for(int i=0; i<_dimi; i++){
+	for(int j=0; j<_dimj; j++){
+	  _grid[i][j] = (rand() % 2);
+	}
+      }
+    }
+  else
+    {
+      FILE* mf;
+      int iv=0, jv=0, vv=0;
+      mf = fopen((_results+".txt").c_str(), "r");
+      fscanf(mf, "%d %d\n", &_dimi, &_dimj);
+      _grid.resize(_dimi,std::vector<int>(_dimj,0));
+      for(int i=0; i<_dimi; i++){
+	for(int j=0; j<_dimj; j++){
+	  fscanf(mf, "%d %d %d\n", &iv, &jv, &vv);
+	  _grid[iv][jv] = vv;
+	}
+      }
+      fclose(mf);
+    }
 }
 
 // Mise a jour du statut des cellules lors d'une iteration:
@@ -82,7 +133,7 @@ void GOL::saveSolution(int it)
   FILE *mf;
   
   if(it == 0){
-    mf = fopen("data", "w");
+    mf = fopen((_results+"/data").c_str(), "w");
     fprintf(mf, "I,J,V,T\n");
     fclose(mf);
   }

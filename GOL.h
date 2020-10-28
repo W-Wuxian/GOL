@@ -1,5 +1,5 @@
 #include <vector>
-
+#include <string>
 class GOL{ //Definition de la classe
   
  public: //Methodes et operateurs de la classe
@@ -9,6 +9,9 @@ class GOL{ //Definition de la classe
   GOL();
   GOL(int dimi, int dimj);
   GOL(int dimij);
+  GOL(int dimi, int dimj, std::string UserChoice);
+  GOL(int dimij, std::string UserChoice);
+  GOL(std::string UserChoice);
 
   void initialisation(); //Initialisation du jeu
   void play(); //Mise a jour du statut des cellules lors d'une iteration
@@ -18,6 +21,8 @@ class GOL{ //Definition de la classe
  private: //Les attributs de la classe
   int _dimi; //Nombre de ligne de la grille
   int _dimj; //Nombre de colonnes de la grille
+  std::string _results; // nom du repertoire où la solution
+  // sera sauvegerdée.
   //La grille qui contient le statut des cellules 1 si cellule vivante,
   //0 si elle est morte. Elle est definie comme un vecteur de vecteur de int.
   std::vector<std::vector<int> > _grid;

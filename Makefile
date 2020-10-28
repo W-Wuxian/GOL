@@ -15,10 +15,11 @@ VER = -std=c++17
 #**************************************************************************
 #--------------------------------------------------------------------------
 DEBUG = no
+CASE = 0
 # Options en mode optimisé - La variable NDEBUG est définie:
 OPTIM_FLAG = -O3 -DNDEBUG -Wall
 # Options en mode debig - La variable NDEBUG n'est pas définie:
-DEBUG_FLAG = -pg -g -O0 -Wall
+DEBUG_FLAG = -pg -g -DCASE=$(CASE) -O0 -Wall
 ifeq ($(DEBUG), yes)
 	OPTION_FLAG = $(DEBUG_FLAG)
 else
