@@ -10,8 +10,19 @@ using namespace std;
 #define GENREP() ((CASE==0)?("Random"):((CASE==1)?("Clown"):((CASE==2)?("Canon"):("Custom"))))
 #endif
 
-int main(){
+int main(int argc, char *argv[], char *envp[]){
+
+  int count;
   
+  // Display each command-line argument.
+  cout << "\nCommand-line arguments:\n";
+  for( count = 0; count < argc; count++ ){
+    cout << "  argv[" << count << "]   " << argv[count] << "\n";
+  }
+  /*for( int i = 0; envp[i]!=NULL; i++ ){
+    cout << "  envp[" << i << "]   " << envp[i] << "\n";
+    }*/
+
   string UserChoice;
   if(GENREP()=="Custom"){
     cout << "ENTER REPOSITORY PATH FOR THE INIT FILE" <<"\n";
