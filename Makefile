@@ -75,7 +75,11 @@ help :
 	@echo "**************************************************************************"
 	@echo "************** make Rrun cmd : to execute Rscript: ***********************"
 	@echo "**************************************************************************"
-	@echo "make Rrun : to run Rscript"
+	@echo "make Rrun : to run Rscript (args[1]:)dirpath without ./ (args[2]:)filename"
+	@echo "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+	@echo "EXAMPLES:"
+	@echo "make Rrun Canon data or make Rrun dir1/Canon data"
+	@echo "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 	@echo "**************************************************************************"
 	@echo "************** make Grun cmd : to execute gprof: *************************"
 	@echo "**************************************************************************"
@@ -101,7 +105,7 @@ run :
 #--------------------------------------------------------------------------
 # 3/ Run R script for Post-treatment Data:
 Rrun :
-	Rscript RGOL.R
+	Rscript RGOL.R $(filter-out Rrun,$(MAKECMDGOALS))
 # 4/ Run gprof for time call functions:
 Grun :
 	gprof -l $(EXEC) gmon.out > analysis.txt

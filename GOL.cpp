@@ -62,7 +62,7 @@ void GOL::initialisation()
     {
       FILE* mf;
       int iv=0, jv=0, vv=0;
-      mf = fopen((_results+".txt").c_str(), "r");
+      mf = fopen((_results+"/*.txt").c_str(), "r");
       fscanf(mf, "%d %d\n", &_dimi, &_dimj);
       _grid.resize(_dimi,std::vector<int>(_dimj,0));
       for(int i=0; i<_dimi; i++){
@@ -138,7 +138,7 @@ void GOL::saveSolution(int it)
     fclose(mf);
   }
   
-  mf = fopen("data", "a");
+  mf = fopen((_results+"/data").c_str(), "a");
   for( int i=0; i<_dimi; i++){
     for( int j=0; j<_dimj; j++){
       fprintf(mf, "%d,%d,%d,%d\n", i, j, _grid[i][j], it);
