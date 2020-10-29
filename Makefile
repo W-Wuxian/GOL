@@ -59,7 +59,7 @@ help :
 	@echo "CASE=1  |---> Clown pattern initialization (Show Clown at iteration 110)"
 	@echo "CASE=2  |---> Canon pattern initialization"
 	@echo "CASE>2  |---> Custom pattern initialization (From a file (IJV) )"
-	@echo "        |---> In this case the path file need to be gave from argc"
+	@echo "        |---> In this case the path file need to be give from argc"
 	@echo "        |---> when using make run cmd"
 	@echo "**************************************************************************"
 	@echo "************** make run cmd : for execution: *****************************"

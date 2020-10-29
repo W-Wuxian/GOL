@@ -23,18 +23,23 @@ int main(int argc, char *argv[], char *envp[]){
 
   string UserChoice;
   string InitFile;
+  int dimi=100, dimj=90;
   if(CASE>2){
     UserChoice = argv[1];
     if(argv[2] != NULL){InitFile = argv[2];}else{InitFile = "mat.txt";}
   }else{UserChoice = GENREP();}
   cout<<" CASE "<<GENREP()<<" UserChoice "<<UserChoice<<"\n";
-  int iterationNB = 110;
-  GOL game(UserChoice, InitFile);
+  int iterationNB = 160;
+  GOL game(dimi, dimj, UserChoice, InitFile);
+  //GOL* game(0);
+  //game = new GOL(dimi, dimj, UserChoice, InitFile);
   game.initialisation();
   game.saveSolution(0);
   for(int ite = 1; ite<iterationNB+1; ite++){
     game.play();
     game.saveSolution(ite);
     }
+  //delete game;
+  //game = 0;
   return 0;
 }

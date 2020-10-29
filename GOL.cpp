@@ -14,7 +14,10 @@ GOL::GOL(int dimij){_dimi = dimij; _dimj = dimij; _grid.resize(_dimi,std::vector
 GOL::GOL(int dimi, int dimj, std::string UserChoice){_dimi = dimi; _dimj = dimj; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
 GOL::GOL(int dimij, std::string UserChoice){_dimi = dimij; _dimj = dimij; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice;}
 // via name:
-GOL::GOL(std::string UserChoice, std::string InitFile){_dimi = 50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0)); _results=UserChoice; _initfile=InitFile;}
+GOL::GOL(int dimi, int dimj, std::string UserChoice, std::string InitFile){_dimi = dimi; _dimj = dimj; _grid.resize(_dimi,std::vector<int>(_dimj,0))
+			       ; _results=UserChoice; _initfile=InitFile;}
+GOL::GOL(std::string UserChoice, std::string InitFile){_dimi = 50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0))
+									       ; _results=UserChoice; _initfile=InitFile;}
 
 // Initialisation du jeu:
 // default: clown case:
@@ -25,7 +28,7 @@ void GOL::initialisation()
   if(_results ==  "Clown") // Clown
     {
       if(_dimi < 50 || _dimj < 50){_dimi=50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0));}
-      std::cout << "_dimi " << _dimi <<std::endl;
+      std::cout << "_dimi " << _dimi << " _dimj " << _dimj << " _grid.size() " << _grid.size()  <<std::endl;
       _grid[19][24] = 1; _grid[19][26] = 1;
       _grid[20][24] = 1; _grid[20][26] = 1;
       _grid[21][24] = 1; _grid[21][25] = 1; _grid[21][26] = 1;
@@ -33,7 +36,7 @@ void GOL::initialisation()
   else if(_results == "Canon") // Canon
     {
       if(_dimi < 50 || _dimj < 50){_dimi=50; _dimj=50; _grid.resize(_dimi,std::vector<int>(_dimj,0));}
-      std::cout << "_dimi " << _dimi <<std::endl;
+      std::cout << "_dimi " << _dimi << " _dimj " << _dimj << " _grid.size() " << _grid.size()  <<std::endl;
       _grid[20][ 6]=1; _grid[23][21]=1; _grid[21][30]=1; _grid[37][43]=1;
       _grid[21][ 6]=1; _grid[20][22]=1; _grid[22][30]=1; _grid[38][43]=1;
       _grid[20][ 7]=1; _grid[21][22]=1; _grid[18][40]=1; _grid[40][43]=1;
@@ -51,6 +54,7 @@ void GOL::initialisation()
     }
   else if(_results == "Random") // Random (default)
     {
+      std::cout << "_dimi " << _dimi << " _dimj " << _dimj << " _grid.size() " << _grid.size()  <<std::endl;
       srand(3000);
       for(int i=0; i<_dimi; i++){
 	for(int j=0; j<_dimj; j++){

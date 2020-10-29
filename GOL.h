@@ -11,6 +11,7 @@ class GOL{ //Definition de la classe
   GOL(int dimij);
   GOL(int dimi, int dimj, std::string UserChoice);
   GOL(int dimij, std::string UserChoice);
+  GOL(int dimi, int dimj, std::string UserChoice, std::string InitFile);
   GOL(std::string UserChoice, std::string InitFile);
 
   void initialisation(); //Initialisation du jeu
