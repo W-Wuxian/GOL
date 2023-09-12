@@ -1,10 +1,10 @@
 # GOL repository
 A Solution to the Game Of Life (GOL) problem
 # running cmd :
-In a shell at the root of thisrepository use the following command:
-make help
-Or
-cd Code && make help
+In a shell use the following command:
+```sh
+User@My-Linux-Desktop:~$ cd ~/GOL/ && make help
+```
 # Dependencies
 - Make
 - g++ as c++ compiler (std17)
